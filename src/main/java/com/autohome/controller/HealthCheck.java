@@ -1,4 +1,4 @@
-package com.autohome.com.autohome.controller;
+package com.autohome.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
