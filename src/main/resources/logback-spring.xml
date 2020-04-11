@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <!--<include resource="org/springframework/boot/logging/logback/base.xml"/>-->
-    <property name="LOG_PATH" value="logs"/>
+<!--    <property name="LOG_PATH" value="logging"/>-->
 
-<!--
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>
@@ -11,7 +10,6 @@
             </pattern>
         </encoder>
     </appender>
--->
 
     <appender name="SAVE-TO-FILE"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -36,7 +34,7 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- rollover daily & on size-->
             <maxFileSize>10MB</maxFileSize>
-            <fileNamePattern>${LOG_PATH}/autohome/archived/log_%d{dd-MM-yyyy}_%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_PATH}/archive/log_%d{dd-MM-yyyy}_%i.log</fileNamePattern>
             <maxHistory>5</maxHistory>
             <totalSizeCap>30MB</totalSizeCap>
         </rollingPolicy>
@@ -62,12 +60,17 @@
 
     <!--<root level="debug">-->
     <root level="ERROR">
-<!--        <appender-ref ref="STDOUT"/>-->
+        <appender-ref ref="STDOUT"/>
         <appender-ref ref="SAVE-TO-FILE"/>
     </root>
 
-    <logger name="com.autohome" additivity="false" level="info">
+    <logger name="com.autohome" additivity = "false" level="info">
 <!--        <appender-ref ref="STDOUT"/>-->
+        <appender-ref ref="SAVE-TO-FILE"/>
+    </logger>
+
+    <logger name="com.autohome.Main" additivity = "false" level="info">
+        <appender-ref ref="STDOUT"/>
         <appender-ref ref="SAVE-TO-FILE"/>
     </logger>
 
