@@ -9,6 +9,6 @@ public class HealthCheck {
 
     @RequestMapping(value = "/ping" ,method = RequestMethod.GET)
     public String showHealthCheck(){
-        return "Pong";
+        return "pong";
     }
 }
