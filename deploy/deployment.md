@@ -24,12 +24,15 @@ sudo systemctl enable myservice
 # Deployment
 
 - cd to autohome repo
+- checkout master
 - pull latest changes from master
 - do a clean install
 - restart the autohome service
 ```
-cd /opt/git/repo/autohome
-git pull
-mvn clean install
+sudo cd /opt/git/repo/autohome
+sudo git reset --hard
+sudo git checkout master
+sudo git pull
+sudo mvn clean install
 sudo systemctl restart autohome
 ```
