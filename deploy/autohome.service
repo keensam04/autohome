@@ -1,0 +1,9 @@
+[Unit]
+Description=Autohome service
+
+[Service]
+Type=simple
+ExecStart=/opt/git/repo/autohome/deploy/start-service.sh
+
+[Install]
+WantedBy=multi-user.target
