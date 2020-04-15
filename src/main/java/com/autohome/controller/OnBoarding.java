@@ -1,6 +1,8 @@
 package com.autohome.controller;
 
+import com.autohome.model.Device;
 import com.autohome.model.Room;
+import com.autohome.service.DeviceService;
 import com.autohome.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,13 +19,15 @@ public class OnBoarding {
     @Autowired
     RoomService roomService;
 
-    //Add and delete rooms and devices
+    @Autowired
+    DeviceService deviceService;
+
 
     @RequestMapping(value = "/room", method = RequestMethod.POST)
     public ResponseEntity<Object> addRooms(@RequestBody Room room, UriComponentsBuilder uriBuilder) {
 
         boolean isSuccess = roomService.addRoom(room);
-        if(isSuccess) {
+        if (isSuccess) {
             URI uri = uriBuilder.path("/room/").path(room.getRoomName()).build().toUri();
             return ResponseEntity.created(uri).build();
         }
@@ -33,10 +37,21 @@ public class OnBoarding {
 
     }
 
-    @RequestMapping(value = "/room/{roomName}", method =  RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Room getRoom(@PathVariable String roomName){
+    @RequestMapping(value = "/room/{roomName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Room getRoom(@PathVariable String roomName) {
         return roomService.getRoom(roomName);
     }
 
+    @RequestMapping(value = "/device", method = RequestMethod.POST)
+    public ResponseEntity<Object> addDevice(@RequestBody Device device, UriComponentsBuilder uriBuilder) {
+        boolean isSuccess = deviceService.addDevice(device);
+
+        if(isSuccess){
+            URI uri = uriBuilder.path("/device/").path(device.getDeviceName()).build().toUri();
+            return ResponseEntity.created(uri).build();
+        }
+
+        return ResponseEntity.unprocessableEntity().build();
+    }
 
 }
