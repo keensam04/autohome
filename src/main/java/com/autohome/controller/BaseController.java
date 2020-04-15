@@ -13,8 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/onboard")
-public class OnBoarding {
+public class BaseController {
 
     @Autowired
     RoomService roomService;
@@ -24,17 +23,14 @@ public class OnBoarding {
 
 
     @RequestMapping(value = "/room", method = RequestMethod.POST)
-    public ResponseEntity<Object> addRooms(@RequestBody Room room, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<Object> addRoom(@RequestBody Room room, UriComponentsBuilder uriBuilder) {
 
         boolean isSuccess = roomService.addRoom(room);
         if (isSuccess) {
             URI uri = uriBuilder.path("/room/").path(room.getRoomName()).build().toUri();
             return ResponseEntity.created(uri).build();
         }
-
         return ResponseEntity.unprocessableEntity().build();
-
-
     }
 
     @RequestMapping(value = "/room/{roomName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,6 +48,12 @@ public class OnBoarding {
         }
 
         return ResponseEntity.unprocessableEntity().build();
+    }
+
+    @RequestMapping(value = "/device/{deviceName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Device getDevice(@PathVariable String deviceName){
+
+        return deviceService.getDevice(deviceName);
     }
 
 }
