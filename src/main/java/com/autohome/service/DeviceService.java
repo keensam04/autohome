@@ -26,7 +26,9 @@ public class DeviceService {
     }
 
     private boolean isDevicePresent(Device device){
-            return device.getDeviceName().equalsIgnoreCase(deviceRepo.getDevice(device.getDeviceName()).getDeviceName());
+        Device deviceFromDb = deviceRepo.getDevice(device.getDeviceName());
+        return deviceFromDb != null && device.getDeviceName().equalsIgnoreCase(deviceRepo.getDevice(device.getDeviceName()).getDeviceName());
+
     }
 
 }

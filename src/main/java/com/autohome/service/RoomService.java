@@ -24,7 +24,25 @@ public class RoomService {
         return roomFromDb != null && roomFromDb.getRoomName().equalsIgnoreCase(room.getRoomName());
     }
 
+    private boolean isRoomPresent(String roomName) {
+        Room roomfromDb = roomRepo.getRoom(roomName);
+        return roomfromDb!=null && roomfromDb.getRoomName().equalsIgnoreCase(roomName);
+    }
+
     public Room getRoom(String roomName){
         return roomRepo.getRoom(roomName);
+    }
+    public boolean updateRoom(Room room, String roomName){
+        if(isRoomPresent(room))
+            return roomRepo.updateRoom(room,roomName);
+        else
+            return false;
+    }
+
+    public boolean deleteRoom(String roomName){
+        if(isRoomPresent(roomName))
+            return roomRepo.deleteRoom(roomName);
+        else
+            return false;
     }
 }

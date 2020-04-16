@@ -21,7 +21,6 @@ public class BaseController {
     @Autowired
     DeviceService deviceService;
 
-
     @RequestMapping(value = "/room", method = RequestMethod.POST)
     public ResponseEntity<Object> addRoom(@RequestBody Room room, UriComponentsBuilder uriBuilder) {
 
@@ -30,7 +29,7 @@ public class BaseController {
             URI uri = uriBuilder.path("/room/").path(room.getRoomName()).build().toUri();
             return ResponseEntity.created(uri).build();
         }
-        return ResponseEntity.unprocessableEntity().build();
+        return ResponseEntity.badRequest().build();
     }
 
     @RequestMapping(value = "/room/{roomName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,6 +53,17 @@ public class BaseController {
     public Device getDevice(@PathVariable String deviceName){
 
         return deviceService.getDevice(deviceName);
+    }
+
+    @RequestMapping(value = "/room/{roomName}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateRoom(@RequestBody Room room,@PathVariable String roomName, UriComponentsBuilder uriBuilder){
+        boolean isSuccess = roomService.updateRoom(room,roomName);
+        if(isSuccess) {
+            URI uri = uriBuilder.path("/room/").path(room.getRoomName()).build().toUri();
+            return ResponseEntity.created(uri).build();
+        }
+        else
+            return ResponseEntity.unprocessableEntity().build();
     }
 
 }

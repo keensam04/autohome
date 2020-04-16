@@ -1,6 +1,5 @@
 package com.autohome.model;
 
-import java.time.Instant;
 import java.util.Date;
 
 public class Device {
@@ -13,7 +12,7 @@ public class Device {
     private float powerRating;
     private int roomId;
     private String onboardedBy;
-    private Instant dateOfOnboarding;
+    private Date dateOfOnboarding;
 
     public Device() {
 
@@ -83,11 +82,11 @@ public class Device {
         this.onboardedBy = onboardedBy;
     }
 
-    public Instant getDateOfOnboarding() {
+    public Date getDateOfOnboarding() {
         return dateOfOnboarding;
     }
 
-    public void setDateOfOnboarding(Instant dateOfOnboarding) {
+    public void setDateOfOnboarding(Date dateOfOnboarding) {
         this.dateOfOnboarding = dateOfOnboarding;
     }
 
