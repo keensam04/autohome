@@ -5,44 +5,46 @@ import com.autohome.model.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RoomService {
 
     @Autowired
     private RoomRepo roomRepo;
 
-    public boolean addRoom(Room room){
+    public int addRoom(Room room) {
 
-        if (!isRoomPresent(room)) {
+        if (!isRoomPresent(room.getId())) {
             return roomRepo.addRoom(room);
         }
-        return false;
+        return -1;
     }
 
-    private boolean isRoomPresent(Room room) {
-        Room roomFromDb = roomRepo.getRoom(room.getRoomName());
-        return roomFromDb != null && roomFromDb.getRoomName().equalsIgnoreCase(room.getRoomName());
+    private boolean isRoomPresent(int id) {
+        Room roomFromDb = roomRepo.getRoom(id);
+        return roomFromDb != null;
     }
 
-    private boolean isRoomPresent(String roomName) {
-        Room roomfromDb = roomRepo.getRoom(roomName);
-        return roomfromDb!=null && roomfromDb.getRoomName().equalsIgnoreCase(roomName);
+    public Room getRoom(int id) {
+        return roomRepo.getRoom(id);
     }
 
-    public Room getRoom(String roomName){
-        return roomRepo.getRoom(roomName);
-    }
-    public boolean updateRoom(Room room, String roomName){
-        if(isRoomPresent(room))
-            return roomRepo.updateRoom(room,roomName);
+    public boolean updateRoom(Room room, int id) {
+        if (isRoomPresent(id))
+            return roomRepo.updateRoom(room, id);
         else
             return false;
     }
 
-    public boolean deleteRoom(String roomName){
-        if(isRoomPresent(roomName))
-            return roomRepo.deleteRoom(roomName);
+    public boolean deleteRoom(int id) {
+        if (isRoomPresent(id))
+            return roomRepo.deleteRoom(id);
         else
             return false;
+    }
+
+    public List<Room> getRooms(){
+        return roomRepo.getRooms();
     }
 }

@@ -5,30 +5,32 @@ import com.autohome.model.Device;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DeviceService {
 
     @Autowired
     DeviceRepo deviceRepo;
 
-    public boolean addDevice(Device device) {
-
-        if (device != null && !isDevicePresent(device)) {
-            return deviceRepo.addDevice(device);
+    public int addDevice(int roomId, Device device) {
+        if (device != null && !isDevicePresent(roomId, device)) {
+            return deviceRepo.addDevice(roomId, device);
         }
-        return false;
+        return -1;
     }
 
-    public Device getDevice(String deviceName) {
-
-        return deviceRepo.getDevice(deviceName);
-
+    public Device getDevice(int roomId,int deviceId) {
+      return deviceRepo.getDeviceById(roomId,deviceId);
     }
 
-    private boolean isDevicePresent(Device device){
-        Device deviceFromDb = deviceRepo.getDevice(device.getDeviceName());
-        return deviceFromDb != null && device.getDeviceName().equalsIgnoreCase(deviceRepo.getDevice(device.getDeviceName()).getDeviceName());
+    private boolean isDevicePresent(int roomId, Device device) {
+        Device deviceFromDb = deviceRepo.getDeviceByName(roomId,device.getDeviceName());
+        return deviceFromDb != null && roomId == deviceFromDb.getRoomId() && device.getDeviceName().equalsIgnoreCase(deviceFromDb.getDeviceName());
+    }
 
+    public List<Device> getDevices(int roomId){
+        return deviceRepo.getDevices(roomId);
     }
 
 }
