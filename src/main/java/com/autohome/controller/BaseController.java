@@ -98,6 +98,16 @@ public class BaseController {
         return deviceService.getDevices(roomId);
     }
 
+    @RequestMapping(value = "/room/{roomId}/device/{id}",method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateDevice(@PathVariable int roomId,@PathVariable int id,@RequestBody Device device, UriComponentsBuilder uriBuilder){
+        boolean isSuccess = deviceService.updateDevice(roomId, id, device);
+        if(isSuccess){
+            URI uri = uriBuilder.path("room/").path(String.valueOf(roomId)).path("/device/").path(String.valueOf(id)).build().toUri();
+            return ResponseEntity.created(uri).build();
+        }
+        else
+            return ResponseEntity.unprocessableEntity().build();
+    }
 
 
 }

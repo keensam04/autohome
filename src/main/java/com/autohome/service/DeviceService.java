@@ -33,4 +33,11 @@ public class DeviceService {
         return deviceRepo.getDevices(roomId);
     }
 
+    public boolean updateDevice(int roomId, int id, Device device){
+        if(!isDevicePresent(roomId,device))
+            return deviceRepo.updateDevice(roomId,id,device);
+        else
+            return false;
+    }
+
 }

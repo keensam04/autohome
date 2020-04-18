@@ -14,7 +14,7 @@ public class Device {
     private int roomId;
     private String onboardedBy;
     private Instant dateOfOnboarding;
-    private Instant dateOfModification;
+    private Instant dateOfModification = Instant.now();
 
     public Instant getDateOfModification() {
         return dateOfModification;
