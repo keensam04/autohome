@@ -14,6 +14,15 @@ public class Device {
     private int roomId;
     private String onboardedBy;
     private Instant dateOfOnboarding;
+    private Instant dateOfModification;
+
+    public Instant getDateOfModification() {
+        return dateOfModification;
+    }
+
+    public void setDateOfModification(Instant dateOfModification) {
+        this.dateOfModification = dateOfModification;
+    }
 
     public int getId() {
         return id;

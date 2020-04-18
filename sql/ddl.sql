@@ -8,6 +8,7 @@
   roomId int,
   onboardedBy nvarchar(64),
   dateOfOnboarding TIMESTAMP NOT NULL  DEFAULT CURRENT_TIMESTAMP,
+  dateOfModification TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
   PRIMARY KEY (id)
   );
   

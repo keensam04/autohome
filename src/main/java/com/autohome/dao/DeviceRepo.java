@@ -110,7 +110,18 @@ public class DeviceRepo {
        return null;
     }
 
+    public boolean updateDevice(int roomId, int id, Device device){
+        String query = "UPDATE room" +
+                "           SET deviceName = ?," +
+                "                dateOfPurchase = ?," +
+                "                dateOfExpiry = ?," +
+                "                isSwitch = ?," +
+                "                powerRating = ?," +
+                "                onboardedBy = ?," +
+                "                dateOfModification = ?" +
+                "       WHERE roomId = ? AND id = ?";
 
-
-
+        jdbcTemplate.update(query, new Object[] {device.getDeviceName(),device.getDateOfPurchase(),device.getDateOfExpiry(),
+                                                device.getIsSwitch(),device.getPowerRating(),device.getOnboardedBy(),device.getDateOfModification() != null ? device.getDateOfModification():});
+    }
 }
