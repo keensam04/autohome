@@ -93,6 +93,7 @@ public class DeviceRepo {
         d.setRoomId(rs.getInt("roomId"));
         d.setOnboardedBy(rs.getString("onboardedBy"));
         d.setDateOfOnboarding(rs.getTimestamp("dateOfOnboarding").toInstant());
+        d.setIsSwitch(rs.getBoolean("isActive"));
         return d;
     }
 

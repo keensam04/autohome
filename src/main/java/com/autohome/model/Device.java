@@ -18,7 +18,7 @@ public class Device {
     private String onboardedBy;
     private Instant dateOfOnboarding;
     private Instant dateOfModification = Instant.now();
-    private boolean isActive = true;
+    private boolean isActive;
 
     public boolean getIsActive() {
         return isActive;
