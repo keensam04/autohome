@@ -37,7 +37,7 @@ public class RoomService {
 
     public boolean updateRoom(Room room, int id) {
         if (isRoomPresent(id)){
-            log.info("Room with id {} has noot been updated",room.getId());
+            log.info("Room with id {} has not been updated",room.getId());
             return roomRepo.updateRoom(room, id);
         }
         else{

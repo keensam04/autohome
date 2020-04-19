@@ -41,7 +41,7 @@ public class RoomRepo {
         return  roomKeyHolder.getKey().intValue();
     }
 
-    public Room getRoom(int Id) {
+    public Room getRoom(int id) {
 
         String query = "SELECT room.id AS roomId, room.roomName, device.id AS deviceId, device.deviceName " +
                 "                FROM room " +
@@ -50,23 +50,23 @@ public class RoomRepo {
                 "                WHERE room.id = ?";
 
         try {
-            List<Room> rooms = jdbcTemplate.query(query, new Object[]{Id}, roomMapper());
+            List<Room> rooms = jdbcTemplate.query(query, new Object[]{id}, roomMapper());
             if (rooms != null && rooms.size() == 1) {
-                log.info("Room with size has been found", rooms.size());
+                log.info("Room with id {} has been found", id);
                 return rooms.get(0);
             }
             else{
-                log.debug("No room has been found ");
+                log.debug("No room with id {} has been found ",id);
                 return null;
             }
         } catch (EmptyResultDataAccessException e) {
             // this is a valid exception. indicates that roomName is not present in the table
-            log.warn("Room with Id {} not present",Id);
+            log.warn("Room with Id {} not present",id);
         }
         return null;
     }
-    //Sql Injection;;
-    public boolean updateRoom(Room room, int id){ // roomName = hall;delete * from device;
+
+    public boolean updateRoom(Room room, int id){
         String query = "UPDATE room SET roomName = ? WHERE id = ?";
         return jdbcTemplate.update(query, room.getRoomName(), id)>0;
     }
@@ -86,17 +86,9 @@ public class RoomRepo {
             return jdbcTemplate.query(query, roomMapper());
         }
         catch (EmptyResultDataAccessException e){
-            log.warn("No rooms found");
+            log.warn("No room found");
         }
         return null;
-    }
-
-    private Room mapRoom(ResultSet rs, int rowNum) throws SQLException {
-        Room r = new Room();
-        r.setId(rs.getInt("id"));
-        r.setRoomName(rs.getString("roomName"));
-
-        return r;
     }
 
     private ResultSetExtractor<List<Room>> roomMapper(){

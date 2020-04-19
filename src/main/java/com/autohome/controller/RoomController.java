@@ -48,7 +48,7 @@ public class RoomController {
         boolean isSuccess = roomService.updateRoom(room,id);
         if(isSuccess) {
             URI uri = uriBuilder.path("/room/").path(room.getRoomName()).build().toUri();
-            return ResponseEntity.created(uri).build();
+            return ResponseEntity.ok().build();
         }
         else
             return ResponseEntity.unprocessableEntity().build();

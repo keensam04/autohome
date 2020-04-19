@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -57,23 +56,8 @@ public class DeviceRepo {
 
     private Device getDevice(int roomId, Object[] args, String query) {
         try {
-            Device device = jdbcTemplate.queryForObject(query, args, new RowMapper<Device>() {
-
-                @Override
-                public Device mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    Device d = new Device();
-                    d.setId(rs.getInt("id"));
-                    d.setDeviceName(rs.getString("deviceName"));
-                    d.setDateOfPurchase(rs.getDate("dateOfPurchase"));
-                    d.setDateOfExpiry(rs.getDate("dateOfExpiry"));
-                    d.setIsSwitch(rs.getBoolean("isSwitch"));
-                    d.setPowerRating(rs.getFloat("powerRating"));
-                    d.setRoomId(rs.getInt("roomId"));
-                    d.setOnboardedBy(rs.getString("onboardedBy"));
-                    d.setDateOfOnboarding(rs.getTimestamp("dateOfOnboarding").toInstant());
-
-                    return d;
-                }
+            Device device = jdbcTemplate.queryForObject(query, args, (rs, rowNum) -> {
+                return rowNum(rs);
             });
             log.info("Device with id {} has been found",device.getId());
             return device;
@@ -86,22 +70,8 @@ public class DeviceRepo {
     public List<Device> getDevices(int roomId) {
         String query = "SELECT * FROM device WHERE roomId = ?";
        try {
-           List<Device> listOfDevices = jdbcTemplate.query(query, new Object[]{roomId}, new RowMapper<Device>() {
-
-               @Override
-               public Device mapRow(ResultSet rs, int rowNum) throws SQLException {
-                   Device d = new Device();
-                   d.setId(rs.getInt("id"));
-                   d.setDeviceName(rs.getString("deviceName"));
-                   d.setDateOfPurchase(rs.getDate("dateOfPurchase"));
-                   d.setDateOfExpiry(rs.getDate("dateOfExpiry"));
-                   d.setIsSwitch(rs.getBoolean("isSwitch"));
-                   d.setPowerRating(rs.getFloat("powerRating"));
-                   d.setRoomId(rs.getInt("roomId"));
-                   d.setOnboardedBy(rs.getString("onboardedBy"));
-                   d.setDateOfOnboarding(rs.getTimestamp("dateOfOnboarding").toInstant());
-                   return d;
-               }
+           List<Device> listOfDevices = jdbcTemplate.query(query, new Object[]{roomId}, (rs, rowNum) -> {
+               return rowNum(rs);
            });
            log.info("Devices has been returned");
            return listOfDevices;
@@ -110,6 +80,20 @@ public class DeviceRepo {
            log.warn("No room with roomId{} found",roomId);
        }
        return null;
+    }
+
+    private Device rowNum(ResultSet rs) throws SQLException {
+        Device d = new Device();
+        d.setId(rs.getInt("id"));
+        d.setDeviceName(rs.getString("deviceName"));
+        d.setDateOfPurchase(rs.getDate("dateOfPurchase"));
+        d.setDateOfExpiry(rs.getDate("dateOfExpiry"));
+        d.setIsSwitch(rs.getBoolean("isSwitch"));
+        d.setPowerRating(rs.getFloat("powerRating"));
+        d.setRoomId(rs.getInt("roomId"));
+        d.setOnboardedBy(rs.getString("onboardedBy"));
+        d.setDateOfOnboarding(rs.getTimestamp("dateOfOnboarding").toInstant());
+        return d;
     }
 
     public boolean updateDevice(int roomId, int id, Device device) {
