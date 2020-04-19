@@ -1,8 +1,11 @@
 package com.autohome.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.time.Instant;
 import java.util.Date;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Device {
 
     private int id;

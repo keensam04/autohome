@@ -75,6 +75,7 @@ public class DeviceRepo {
                     return d;
                 }
             });
+            log.info("Device with id {} has been found",device.getId());
             return device;
         } catch (EmptyResultDataAccessException e) {
             log.warn("Device with args {} doesn't exist in table", args);
@@ -102,6 +103,7 @@ public class DeviceRepo {
                    return d;
                }
            });
+           log.info("Devices has been returned");
            return listOfDevices;
        }
        catch (EmptyResultDataAccessException e){
@@ -111,7 +113,7 @@ public class DeviceRepo {
     }
 
     public boolean updateDevice(int roomId, int id, Device device) {
-        String query = "UPDATE room" +
+        String query = "UPDATE device" +
                 "           SET deviceName = ?," +
                 "                dateOfPurchase = ?," +
                 "                dateOfExpiry = ?," +
@@ -121,12 +123,27 @@ public class DeviceRepo {
                 "                dateOfModification = ?" +
                 "       WHERE roomId = ? AND id = ?";
 
-        int noOfRows = jdbcTemplate.update(query, new Object[]{device.getDeviceName(), device.getDateOfPurchase(), device.getDateOfExpiry(),
-                device.getIsSwitch(), device.getPowerRating(), device.getOnboardedBy(), device.getDateOfModification(),
-                roomId, id});
+        Object[] args = new Object[]{
+                device.getDeviceName(),
+                new Date(device.getDateOfPurchase().getTime()),
+                new Date(device.getDateOfExpiry().getTime()),
+                device.getIsSwitch(),
+                device.getPowerRating(),
+                device.getOnboardedBy(),
+                Timestamp.from(device.getDateOfModification()),
+                roomId,
+                id};
+        int noOfRows = jdbcTemplate.update(query, args);
         return true;
 
     }
+/*
+
+    public boolean deleteDevice(int roomId, int id){
+        String query = "DELETE FROM device WHERE roomId = ? AND id = ?";
+        return jdbcTemplate.update(query, new Object[]{roomId,id})>0;
+    }
+*/
 
 
 }

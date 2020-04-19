@@ -1,12 +1,13 @@
 package com.autohome.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
 
     private int id;
     private String roomName;
-    private List<Device> devices;
+    private List<Device> devices = new ArrayList<>();
 
     public int getId() {
         return id;
