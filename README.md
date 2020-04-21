@@ -2,9 +2,9 @@
 Home automation
 
 
-The service is hosted on [keensam04.serverless.social](http://keensam04.serverless.social/ping).
+The service is hosted on [autohome.serverless.social](http://autohome.serverless.social/ping).
 Please raise an issue if you do not find it accessible
 
-## People involved
+## Contributors
 - [misdaque](https://github.com/misdaque)
 - [saman](https://github.com/keensam04)
