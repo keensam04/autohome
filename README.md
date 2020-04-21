@@ -2,7 +2,7 @@
 Home automation
 
 
-The service is hosted on [autohome.serverless.social](http://autohome.serverless.social/ping).
+The service is hosted on <a href="http://autohome.serverless.social/ping" target="_blank">autohome.serverless.social</a>.
 Please raise an issue if you do not find it accessible
 
 ## Contributors
