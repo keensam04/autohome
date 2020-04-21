@@ -93,6 +93,7 @@ public class DeviceRepo {
         d.setRoomId(rs.getInt("roomId"));
         d.setOnboardedBy(rs.getString("onboardedBy"));
         d.setDateOfOnboarding(rs.getTimestamp("dateOfOnboarding").toInstant());
+        d.setIsSwitch(rs.getBoolean("isActive"));
         return d;
     }
 
@@ -120,6 +121,18 @@ public class DeviceRepo {
         int noOfRows = jdbcTemplate.update(query, args);
         return true;
 
+    }
+
+    public int changeRoom(int roomId, int id,int newRoomId){
+        String query = "UPDATE device SET roomId = ? WHERE id = ? AND roomId = ?";
+        try{
+        int noOfRows = jdbcTemplate.update(query, newRoomId, id, roomId);
+        return noOfRows;
+        }
+        catch (EmptyResultDataAccessException e){
+            log.warn("Device with roomId {} or deviceId {} not found",roomId,id);
+            return -1;
+        }
     }
 /*
 

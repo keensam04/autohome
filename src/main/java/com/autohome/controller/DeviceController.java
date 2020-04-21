@@ -11,6 +11,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/room/{roomId}/device")
@@ -52,5 +53,22 @@ public class DeviceController {
             return ResponseEntity.ok().build();
         } else
             return ResponseEntity.unprocessableEntity().build();
+    }
+
+    @RequestMapping(value = "/{id}/changeroom", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Device> changeRoom(@PathVariable int roomId, @PathVariable int id, @RequestParam(required = true) int newRoomId, UriComponentsBuilder uriBuilder) {
+        Optional<Device> device =  deviceService.changeRoom(roomId, id, newRoomId);
+        if (device.isPresent()) {
+            URI uri = uriBuilder.path("/room/").path(String.valueOf(newRoomId)).path("/device/").path(String.valueOf(id)).build().toUri();
+            return ResponseEntity.ok().location(uri).body(device.get());
+        }
+        else
+            return ResponseEntity.badRequest().build();
+
+/*        return device.map(d -> {
+            URI uri = uriBuilder.path("/room/").path(String.valueOf(newRoomId)).path("/device/").path(String.valueOf(id)).build().toUri();
+            return ResponseEntity.ok().location(uri).body(device.get());
+        }).orElseGet(() -> ResponseEntity.badRequest().build());*/
+
     }
 }
