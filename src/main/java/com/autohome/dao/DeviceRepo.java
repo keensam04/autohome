@@ -134,6 +134,18 @@ public class DeviceRepo {
             return -1;
         }
     }
+
+    public int offBoardDevice(int roomId, int id){
+        String query = "UPDATE device SET roomId = 0,isActive = false WHERE roomId = ? AND id = ?";
+        try {
+            int noOfRows = jdbcTemplate.update(query, roomId, id);
+            return noOfRows;
+        }
+        catch(EmptyResultDataAccessException e){
+            log.error("Device with roomId {} or id {} not found",roomId,id);
+        }
+        return -1;
+    }
 /*
 
     public boolean deleteDevice(int roomId, int id){
