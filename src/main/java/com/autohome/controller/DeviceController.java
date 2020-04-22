@@ -76,7 +76,7 @@ public class DeviceController {
     public ResponseEntity<Object> offBoardDevice(@PathVariable int roomId,@PathVariable int id){
         int noOfRows = deviceService.offBoardDevice(roomId,id);
         if (noOfRows > 0){
-            return ResponseEntity.ok().build();
+            return ResponseEntity.noContent().build();
         }
         else if (noOfRows == 0){
             return ResponseEntity.notFound().build();
