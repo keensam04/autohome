@@ -63,4 +63,12 @@ public class DeviceService {
         }
         return Optional.empty();
     }
+
+    public int offBoardDevice(int roomId, int id){
+            return deviceRepo.offBoardDevice(roomId,id);
+    }
+
+    public int offBoardDevices(int roomId){
+        return deviceRepo.offBoardDevices(roomId);
+    }
 }

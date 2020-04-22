@@ -12,6 +12,8 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Repository
@@ -134,6 +136,48 @@ public class DeviceRepo {
             return -1;
         }
     }
+
+    public int offBoardDevice(int roomId, int id){
+        String query = "UPDATE device SET roomId = 0,isActive = false WHERE roomId = ? AND id = ?";
+        try {
+            int noOfRows = jdbcTemplate.update(query, roomId, id);
+            return noOfRows;
+        }
+        catch(EmptyResultDataAccessException e){
+            log.error("Device with roomId {} or id {} not found",roomId,id);
+        }
+        return -1;
+    }
+
+//This method can be used while deleting/Off Boarding all the devices from a room.
+    public int offBoardDevices(int roomId ){
+        List<Device> devices = getDevices(roomId);
+        StringBuilder  query = new StringBuilder("UPDATE device SET roomId = 0,isActive = false, offBoardedBY=? WHERE roomId = ? AND id IN (");
+        List<Object> ids = new ArrayList<>();
+        ids.add("John Doe");
+        ids.add(roomId);
+
+        int i = 1;
+        Iterator<Device> iterator = devices.iterator();
+        while ((iterator.hasNext())){
+            ids.add(iterator.next().getId());
+            query.append('?');
+            if (i != devices.size())
+                query.append(',');
+            i++;
+        }
+        query.append(")");
+
+        try {
+            int noOfRows = jdbcTemplate.update(query.toString(), ids.toArray());
+            return noOfRows;
+        }
+        catch(EmptyResultDataAccessException e){
+            log.error("Room with roomId {} not found ",roomId);
+        }
+        return -1;
+    }
+
 /*
 
     public boolean deleteDevice(int roomId, int id){

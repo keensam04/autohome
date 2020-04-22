@@ -71,10 +71,10 @@ public class RoomRepo {
         return jdbcTemplate.update(query, room.getRoomName(), id)>0;
     }
 
-/*    public boolean deleteRoom(int id){
-        String query = "DELETE FROM room WHERE id = ?";
-        return jdbcTemplate.update(query, id)>0;
-    }*/
+    public boolean deleteRoom(int id){
+            String  query = "DELETE FROM room WHERE id = ?";
+            return jdbcTemplate.update(query, id) > 0;
+    }
 
     public List<Room> getRooms(){
 
@@ -127,5 +127,4 @@ public class RoomRepo {
             }
         };
     }
-
 }

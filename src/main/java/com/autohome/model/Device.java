@@ -16,9 +16,18 @@ public class Device {
     private float powerRating;
     private int roomId;
     private String onboardedBy;
+    private String offBoardedBy;
     private Instant dateOfOnboarding;
     private Instant dateOfModification = Instant.now();
     private boolean isActive;
+
+    public String getOffBoardedBy() {
+        return offBoardedBy;
+    }
+
+    public void setOffBoardedBy(String offBoardedBy) {
+        this.offBoardedBy = offBoardedBy;
+    }
 
     public boolean getIsActive() {
         return isActive;

@@ -54,14 +54,13 @@ public class RoomController {
             return ResponseEntity.unprocessableEntity().build();
     }
 
-/*    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteRoom(@PathVariable int id, UriComponentsBuilder uriBuilder){
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteRoom(@PathVariable int id){
         boolean isSuccess = roomService.deleteRoom(id);
         if(isSuccess){
-            URI uri = uriBuilder.path("/room/").path(String.format("%d",id)).build().toUri();
-            return ResponseEntity.created(uri).build();
+            return ResponseEntity.noContent().build();
         }
         else
             return ResponseEntity.unprocessableEntity().build();
-    }*/
+    }
 }

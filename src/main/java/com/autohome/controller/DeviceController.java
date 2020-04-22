@@ -71,4 +71,17 @@ public class DeviceController {
         }).orElseGet(() -> ResponseEntity.badRequest().build());*/
 
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> offBoardDevice(@PathVariable int roomId,@PathVariable int id){
+        int noOfRows = deviceService.offBoardDevice(roomId,id);
+        if (noOfRows > 0){
+            return ResponseEntity.noContent().build();
+        }
+        else if (noOfRows == 0){
+            return ResponseEntity.notFound().build();
+        }
+        else
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
 }
