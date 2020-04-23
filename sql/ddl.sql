@@ -6,7 +6,7 @@
   isSwitch boolean,
   powerRating float,
   roomId int,
-  onboardedBy nvarchar(64),
+  onBoardedBy nvarchar(64),
   offBoardedBY nvarchar(32);
   isActive boolean DEFAULT true,
   dateOfOnboarding TIMESTAMP NOT NULL  DEFAULT CURRENT_TIMESTAMP,

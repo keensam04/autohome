@@ -152,7 +152,7 @@ public class DeviceRepo {
 //This method can be used while deleting/Off Boarding all the devices from a room.
     public int offBoardDevices(int roomId ){
         List<Device> devices = getDevices(roomId);
-        StringBuilder  query = new StringBuilder("UPDATE device SET roomId = 0,isActive = false, offBoardedBY=? WHERE roomId = ? AND id IN (");
+        StringBuilder  query = new StringBuilder("UPDATE device SET roomId = 0,isActive = false, offBoardedBy=? WHERE roomId = ? AND id IN (");
         List<Object> ids = new ArrayList<>();
         ids.add("John Doe");
         ids.add(roomId);
