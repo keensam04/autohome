@@ -11,7 +11,7 @@ import java.util.Collections;
 
 @RestController
 @RequestMapping(value = "/room/{roomId}/device/{deviceId}/operate")
-public class DeviceOperationController {
+public class DeviceManagementController {
 
     @Autowired
     DeviceStateService deviceStateService;
