@@ -6,14 +6,13 @@
   isSwitch boolean,
   powerRating float,
   roomId int,
-  onboardedBy nvarchar(64),
+  onBoardedBy nvarchar(64),
   offBoardedBY nvarchar(32);
   isActive boolean DEFAULT true,
   dateOfOnboarding TIMESTAMP NOT NULL  DEFAULT CURRENT_TIMESTAMP,
   dateOfModification TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
   PRIMARY KEY (id)
   );
-  
   
 CREATE TABLE room(
   id int NOT NULL AUTO_INCREMENT,
@@ -26,6 +25,7 @@ CREATE TABLE deviceStateLog(
   id int NOT NULL AUTO_INCREMENT,
   deviceId int NOT NULL,
   state TINYINT,
+  roomId int NOT NULL;
   time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date DATE NOT NULL,
   user nvarchar(64),

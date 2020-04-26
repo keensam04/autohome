@@ -11,6 +11,15 @@ public class DeviceStateLog {
     private Instant time;
     private Date date;
     private String user;
+    private int roomId;
+
+    public int getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
+    }
 
     public int getId() {
         return id;
