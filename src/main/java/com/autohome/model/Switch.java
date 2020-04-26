@@ -3,13 +3,13 @@ package com.autohome.model;
 
 public class Switch {
 
-    private boolean off;
+    private boolean on;
 
-    public boolean isOff() {
-        return off;
+    public boolean isOn() {
+        return on;
     }
 
-    public void setOff(boolean off) {
-        this.off = off;
+    public void setOn(boolean on) {
+        this.on = on;
     }
 }

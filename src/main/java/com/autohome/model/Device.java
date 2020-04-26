@@ -20,6 +20,7 @@ public class Device {
     private Instant dateOfOnboarding;
     private Instant dateOfModification = Instant.now();
     private boolean isActive;
+    private Switch _switch;
 
     public String getOffBoardedBy() {
         return offBoardedBy;
@@ -117,4 +118,11 @@ public class Device {
         this.dateOfOnboarding = dateOfOnboarding;
     }
 
+    public Switch get_switch() {
+        return _switch;
+    }
+
+    public void set_switch(Switch _switch) {
+        this._switch = _switch;
+    }
 }
