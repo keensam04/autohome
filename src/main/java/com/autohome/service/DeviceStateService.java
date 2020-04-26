@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class DeviceStateService {
 
     @Autowired
-    private DeviceStateRepo deviceStateRepo;
+    DeviceStateRepo deviceStateRepo;
 
     @Autowired
     DeviceService deviceService;

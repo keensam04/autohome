@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/room/{roomid}/device/{deviceId}/operate")
+@RequestMapping(value = "/room/{roomId}/device/{deviceId}/operate")
 public class DeviceManagementController {
 
     @Autowired
