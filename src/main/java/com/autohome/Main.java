@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Main {
 
+
     private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
@@ -18,4 +19,17 @@ public class Main {
     private static void logShutDown() {
         LOG.info("JVM shutting down");
     }
+
+/*
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests(a -> a.antMatchers("/", "/ping", "/error").permitAll()
+                .anyRequest().authenticated())
+                .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
+                .logout(l -> l.logoutSuccessUrl("/").permitAll())
+                .csrf(c -> c.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+                .httpBasic();
+    }
+*/
+
 }
