@@ -25,7 +25,7 @@ CREATE TABLE deviceStateLog(
   id int NOT NULL AUTO_INCREMENT,
   deviceId int NOT NULL,
   state TINYINT,
-  roomId int NOT NULL;
+  roomId int NOT NULL,
   time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   date DATE NOT NULL,
   user nvarchar(64),
@@ -33,5 +33,22 @@ CREATE TABLE deviceStateLog(
   INDEX (date,deviceId)
   );
 
+
+CREATE TABLE users(
+    id int NOT NULL AUTO_INCREMENT,
+    firstName nvarchar(64),
+    lastName nvarchar(64),
+    email nvarchar(128),
+    inActive boolean DEFAULT false,
+    picture nvarchar(256),
+    role nvarchar(16),
+    PRIMARY KEY (id)
+    );
+
+CREATE TABLE roles(
+    role nvarchar(16) NOT NULL,
+    scope nvarchar(16) NOT NULL,
+    PRIMARY KEY(role)
+    );
 
 
