@@ -31,6 +31,8 @@ public class CustomUserOidcService extends OidcUserService {
     }
 
     private void updateUser(Users users){
-
+        Users userByEmail = usersRepo.getUserByEmail(users.getEmail());
+        if(userByEmail == null)
+            usersRepo.addUser(users);
     }
 }
