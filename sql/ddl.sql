@@ -35,14 +35,13 @@ CREATE TABLE deviceStateLog(
 
 
 CREATE TABLE users(
-    id int NOT NULL AUTO_INCREMENT,
     firstName nvarchar(64),
     lastName nvarchar(64),
     email nvarchar(128),
     inActive boolean DEFAULT false,
     picture nvarchar(256),
     role nvarchar(16),
-    PRIMARY KEY (id)
+    PRIMARY KEY (email)
     );
 
 CREATE TABLE roles(

@@ -19,21 +19,6 @@ public class UsersRepo {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public Users getUserById(int id) {
-        String query = "SELECT * FROM users WHERE id = ?";
-
-        try {
-            Users users = jdbcTemplate.queryForObject(query, new Object[]{id}, (rs, rowNum) -> {
-                return getUser(rs);
-            });
-            return users;
-        } catch (EmptyResultDataAccessException e) {
-            log.warn("No User with id {} found", id);
-            return null;
-        }
-
-    }
-
     private Users getUser(ResultSet rs) throws SQLException {
         Users u = new Users();
         u.setEmail(rs.getString("email"));
@@ -42,7 +27,6 @@ public class UsersRepo {
         u.setInActive(rs.getBoolean("inActive"));
         u.setPicture(rs.getString("picture"));
         u.setRole(rs.getString("role"));
-        u.setId(rs.getInt("id"));
 
         return u;
     }
@@ -55,7 +39,7 @@ public class UsersRepo {
             });
             return users;
         } catch (EmptyResultDataAccessException e) {
-            log.warn("No User with id {} found", email);
+            log.warn("No User with email {} found", email);
             return null;
         }
 
