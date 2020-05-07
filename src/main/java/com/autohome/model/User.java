@@ -1,6 +1,8 @@
 package com.autohome.model;
 
-public class Users {
+import java.security.Principal;
+
+public class User implements Principal {
 
     private int id;
     private String firstName;
@@ -64,5 +66,10 @@ public class Users {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public String getName() {
+        return email;
     }
 }

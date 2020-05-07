@@ -1,6 +1,6 @@
 package com.autohome.dao;
 
-import com.autohome.model.Users;
+import com.autohome.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +19,8 @@ public class UsersRepo {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    private Users getUser(ResultSet rs) throws SQLException {
-        Users u = new Users();
+    private User getUser(ResultSet rs) throws SQLException {
+        User u = new User();
         u.setEmail(rs.getString("email"));
         u.setFirstName(rs.getString("firstName"));
         u.setLastName(rs.getString("lastName"));
@@ -31,13 +31,13 @@ public class UsersRepo {
         return u;
     }
 
-    public Users getUserByEmail(String email) {
+    public User getUserByEmail(String email) {
         String query = "SELECT * FROM users WHERE email = ?";
         try {
-            Users users = jdbcTemplate.queryForObject(query, new Object[]{email}, (rs, rowNum) -> {
+            User user = jdbcTemplate.queryForObject(query, new Object[]{email}, (rs, rowNum) -> {
                 return getUser(rs);
             });
-            return users;
+            return user;
         } catch (EmptyResultDataAccessException e) {
             log.warn("No User with email {} found", email);
             return null;
@@ -45,7 +45,7 @@ public class UsersRepo {
 
     }
 
-    public boolean addUser(Users user) {
+    public boolean addUser(User user) {
         String query = "INSERT INTO users(email,firstName,lastName,picture)" +
                 "       values (?,?,?,?) ";
         try {

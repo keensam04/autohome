@@ -2,10 +2,12 @@ package com.autohome.controller;
 
 import com.autohome.model.Room;
 import com.autohome.service.RoomService;
+import com.autohome.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -19,11 +21,13 @@ public class RoomController {
     @Autowired
     RoomService roomService;
 
+    @Secured({Constants.ROLE_USER, Constants.ROLE_ADMIN})
     @RequestMapping(method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Room> getRooms(){
         return roomService.getRooms();
     }
 
+    @Secured({Constants.ROLE_ADMIN})
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Object> addRoom(@RequestBody Room room, UriComponentsBuilder uriBuilder) {
 
