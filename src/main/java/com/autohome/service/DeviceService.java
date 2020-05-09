@@ -27,7 +27,7 @@ public class DeviceService {
             log.info("Device with id {} has been added", device.getId());
             return deviceRepo.addDevice(roomId, device);
         }
-        log.debug("Device with id {} was not added", device.getId());
+        log.debug("Device with id {} was not added", device != null ? device.getId() : null);
         return -1;
     }
 
