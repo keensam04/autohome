@@ -3,6 +3,7 @@ package com.autohome.service;
 import com.autohome.dao.DeviceRepo;
 import com.autohome.dao.RoomRepo;
 import com.autohome.model.Device;
+import com.autohome.model.Room;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,8 @@ public class DeviceService {
     public static final Logger log = LoggerFactory.getLogger(DeviceService.class);
 
     public int addDevice(int roomId, Device device) {
-        if (device != null && !isDevicePresent(roomId, device)) {
+        Room room = roomRepo.getRoom(roomId);
+        if (room != null && device != null && !isDevicePresent(roomId, device)) {
             log.info("Device with id {} has been added", device.getId());
             return deviceRepo.addDevice(roomId, device);
         }
@@ -71,4 +73,6 @@ public class DeviceService {
     public int offBoardDevices(int roomId){
         return deviceRepo.offBoardDevices(roomId);
     }
+
+
 }
