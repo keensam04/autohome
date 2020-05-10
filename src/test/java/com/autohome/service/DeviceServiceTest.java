@@ -115,19 +115,21 @@ public class DeviceServiceTest {
     }
 
     @Test
-    public void testAddDeviceWithZeroRoomId() {
-        int roomId = 0;
-        Device device = new Device();
-        device.setId(1);
-        device.setDeviceName("test");
+    public void testAddDeviceWithDifferentDeviceName(){
+        int roomId = 1;
+        Device presentDevice = new Device();
+        presentDevice.setId(1);
+        presentDevice.setDeviceName("bulb");
 
-        Mockito.when(deviceRepo.getDeviceByName(Mockito.anyInt(), Mockito.anyString())).thenReturn(null);
-        Mockito.when(deviceRepo.addDevice(Mockito.anyInt(), Mockito.any(Device.class))).thenReturn(0);
-        Mockito.when(roomRepo.getRoom(Mockito.anyInt())).thenReturn(null);
+        Device newDevice = new Device();
+        newDevice.setId(2);
+        newDevice.setDeviceName("fan");
 
-        int rowsEffected = deviceService.addDevice(roomId, device);
+        Mockito.when(deviceRepo.getDeviceByName(Mockito.anyInt(),Mockito.anyString())).thenReturn(presentDevice);
+        Mockito.when(deviceRepo.addDevice(Mockito.anyInt(),Mockito.any(Device.class))).thenReturn(1);
+        Mockito.when(roomRepo.getRoom(Mockito.anyInt())).thenReturn(new Room());
 
-        Mockito.verifyZeroInteractions(deviceRepo);
-        Assert.assertEquals(-1, rowsEffected);
+        int rowseffected = deviceService.addDevice(roomId,newDevice);
+        Assert.assertEquals(1,rowseffected);
     }
 }
