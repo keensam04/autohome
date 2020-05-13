@@ -1,5 +1,7 @@
 package com.autohome.controller;
 
+import com.autohome.auth.IsAdmin;
+import com.autohome.auth.IsUser;
 import com.autohome.model.ErrorMessage;
 import com.autohome.model.Switch;
 import com.autohome.service.DeviceStateService;
@@ -17,6 +19,8 @@ public class DeviceOperationController {
     DeviceStateService deviceStateService;
 
     @RequestMapping(method = RequestMethod.POST)
+    @IsUser
+    @IsAdmin
     public ResponseEntity<Object> switchOnOff(@PathVariable int roomId, @PathVariable int deviceId, @RequestBody Switch _switch){
 
         int noOfRows = deviceStateService.switchOnOff(roomId, deviceId, _switch,"John Doe");
