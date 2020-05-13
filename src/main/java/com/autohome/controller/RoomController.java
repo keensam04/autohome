@@ -1,5 +1,7 @@
 package com.autohome.controller;
 
+import com.autohome.config.IsAdmin;
+import com.autohome.config.IsUser;
 import com.autohome.model.Room;
 import com.autohome.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +22,13 @@ public class RoomController {
     RoomService roomService;
 
     @RequestMapping(method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    @IsUser
     public List<Room> getRooms(){
         return roomService.getRooms();
     }
 
     @RequestMapping(method = RequestMethod.POST)
+    @IsAdmin
     public ResponseEntity<Object> addRoom(@RequestBody Room room, UriComponentsBuilder uriBuilder) {
 
         int roomId = roomService.addRoom(room);
