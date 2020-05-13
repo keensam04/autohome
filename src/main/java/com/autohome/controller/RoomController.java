@@ -1,7 +1,7 @@
 package com.autohome.controller;
 
-import com.autohome.config.IsAdmin;
-import com.autohome.config.IsUser;
+import com.autohome.auth.IsAdmin;
+import com.autohome.auth.IsUser;
 import com.autohome.model.Room;
 import com.autohome.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +23,7 @@ public class RoomController {
 
     @RequestMapping(method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
     @IsUser
+    @IsAdmin
     public List<Room> getRooms(){
         return roomService.getRooms();
     }
@@ -43,11 +44,14 @@ public class RoomController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @IsUser
+    @IsAdmin
     public Room getRoom(@PathVariable int id) {
         return roomService.getRoom(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @IsAdmin
     public ResponseEntity<Object> updateRoom(@RequestBody Room room,@PathVariable int id, UriComponentsBuilder uriBuilder){
         boolean isSuccess = roomService.updateRoom(room,id);
         if(isSuccess) {
@@ -59,6 +63,7 @@ public class RoomController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @IsAdmin
     public ResponseEntity<Object> deleteRoom(@PathVariable int id){
         boolean isSuccess = roomService.deleteRoom(id);
         if(isSuccess){

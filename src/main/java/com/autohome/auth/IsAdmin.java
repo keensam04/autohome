@@ -1,4 +1,4 @@
-package com.autohome.config;
+package com.autohome.auth;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -13,5 +13,5 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@PreAuthorize("hasRole('user')")
-public @interface IsUser {}
+@PreAuthorize("hasRole('admin')")
+public @interface IsAdmin {}
