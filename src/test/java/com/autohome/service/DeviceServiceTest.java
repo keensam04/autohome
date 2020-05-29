@@ -132,4 +132,5 @@ public class DeviceServiceTest {
         int rowseffected = deviceService.addDevice(roomId,newDevice);
         Assert.assertEquals(1,rowseffected);
     }
+
 }
