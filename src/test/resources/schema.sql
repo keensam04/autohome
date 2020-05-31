@@ -34,3 +34,4 @@ CREATE TABLE deviceStateLog(
 CREATE INDEX deviceStateLogIndex ON deviceStateLog (date, deviceId);
 
 
+

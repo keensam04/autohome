@@ -17,12 +17,31 @@ public class RoomServiceTest {
     private RoomService roomService;
 
     @Test
-    public void addRoomTest(){
+    public void testAddRoomWhenRoomIsNotPresent(){
         Room room = new Room();
-        room.setId(1);
+        room.setRoomName("Bedroom");
+
+        int roomAdded = roomService.addRoom(room);
+        Assert.assertEquals(2, roomAdded);
+    }
+
+    @Test
+    public void testAddRoomWhenRoomIsAlreadyPresent(){
+        Room room = new Room();
         room.setRoomName("hall");
 
         int roomAdded = roomService.addRoom(room);
-        Assert.assertEquals(1, roomAdded);
+        Assert.assertEquals(-1,roomAdded);
+    }
+
+    @Test
+    public void testGetRoomWhenRoomIsPresent(){
+        int roomId = 1;
+        Room room = new Room();
+        room.setRoomName("hall");
+        room.setId(1);
+
+        Room returnedRoom = roomService.getRoom(roomId);
+        Assert.assertEquals(room,returnedRoom);
     }
 }

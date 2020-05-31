@@ -30,6 +30,7 @@ public class RoomRepo {
 
         KeyHolder roomKeyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
+
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
                 PreparedStatement statement = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -41,7 +42,7 @@ public class RoomRepo {
         return  roomKeyHolder.getKey().intValue();
     }
 
-    public Room getRoom(int id) {
+    public Room getRoomById(int id) {
 
         String query = "SELECT room.id AS roomId, room.roomName, device.id AS deviceId, device.deviceName " +
                 "                FROM room " +
@@ -64,6 +65,24 @@ public class RoomRepo {
             log.warn("Room with Id {} not present",id);
         }
         return null;
+    }
+
+    public Room getRoomByName(String roomName){
+        try {
+            String query = "SELECT * FROM room WHERE roomName = ?";
+            return jdbcTemplate.queryForObject(query, new Object[]{roomName}, (rs, rowNum) -> {
+                Room room = new Room();
+                room.setId(rs.getInt("id"));
+                room.setRoomName("roomName");
+                return room;
+            });
+        }
+        catch (EmptyResultDataAccessException e){
+            log.error("Room with the given name '{}' not present",roomName);
+            return null;
+
+        }
+
     }
 
     public boolean updateRoom(Room room, int id){

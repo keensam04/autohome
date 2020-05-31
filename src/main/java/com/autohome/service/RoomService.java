@@ -22,25 +22,30 @@ public class RoomService {
 
     public int addRoom(Room room) {
 
-        if (!isRoomPresent(room.getId())) {
-            log.info("Room with id {} has been added", room.getId());
+        if (!isRoomPresentByName(room.getRoomName())) {
+            log.info("Room with name {} has been added", room.getRoomName());
             return roomRepo.addRoom(room);
         }
         log.debug("Room with id {} hasn't been added", room.getId());
         return -1;
     }
 
-    private boolean isRoomPresent(int id) {
-        Room roomFromDb = roomRepo.getRoom(id);
+    private boolean isRoomPresentByName(String roomName){
+        Room roomFromBb = roomRepo.getRoomByName(roomName);
+        return roomFromBb != null;
+    }
+
+    private boolean isRoomPresentById(int id) {
+        Room roomFromDb = roomRepo.getRoomById(id);
         return roomFromDb != null;
     }
 
     public Room getRoom(int id) {
-        return roomRepo.getRoom(id);
+        return roomRepo.getRoomById(id);
     }
 
     public boolean updateRoom(Room room, int id) {
-        if (isRoomPresent(id)) {
+        if (isRoomPresentById(id)) {
             log.info("Room with id {} has not been updated", room.getId());
             return roomRepo.updateRoom(room, id);
         } else {
@@ -51,7 +56,7 @@ public class RoomService {
     }
 
     public boolean deleteRoom(int id) {
-        if (isRoomPresent(id)) {
+        if (isRoomPresentById(id)) {
             deviceService.offBoardDevices(id);
             return roomRepo.deleteRoom(id);
         } else {

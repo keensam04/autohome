@@ -24,7 +24,7 @@ public class DeviceService {
     public static final Logger log = LoggerFactory.getLogger(DeviceService.class);
 
     public int addDevice(int roomId, Device device) {
-        Room room = roomRepo.getRoom(roomId);
+        Room room = roomRepo.getRoomById(roomId);
         if (room != null && device != null && !isDevicePresent(roomId, device)) {
             log.info("Device with id {} has been added", device.getId());
             return deviceRepo.addDevice(roomId, device);
@@ -58,7 +58,7 @@ public class DeviceService {
     }
 
     public Optional<Device> changeRoom(int roomId, int id, int newRoomId) {
-        if (roomRepo.getRoom(newRoomId) != null) {
+        if (roomRepo.getRoomById(newRoomId) != null) {
             int noOfRows = deviceRepo.changeRoom(roomId, id, newRoomId);
             if (noOfRows > 0)
                 return Optional.ofNullable(deviceRepo.getDeviceById(newRoomId,id));

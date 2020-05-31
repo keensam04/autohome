@@ -37,7 +37,7 @@ public class DeviceServiceTest {
 
         Mockito.when(deviceRepo.getDeviceByName(Mockito.anyInt(), Mockito.anyString())).thenReturn(null);
         Mockito.when(deviceRepo.addDevice(Mockito.anyInt(), Mockito.any(Device.class))).thenReturn(1);
-        Mockito.when(roomRepo.getRoom(Mockito.anyInt())).thenReturn(new Room());
+        Mockito.when(roomRepo.getRoomById(Mockito.anyInt())).thenReturn(new Room());
 
         int rowsEffected = deviceService.addDevice(roomId, device);
 
@@ -65,7 +65,7 @@ public class DeviceServiceTest {
 
         Mockito.when(deviceRepo.addDevice(Mockito.anyInt(), Mockito.any(Device.class))).thenReturn(0);
         Mockito.when(deviceRepo.getDeviceByName(Mockito.anyInt(), Mockito.anyString())).thenReturn(null);
-        Mockito.when(roomRepo.getRoom(Mockito.anyInt())).thenReturn(null);
+        Mockito.when(roomRepo.getRoomById(Mockito.anyInt())).thenReturn(null);
 
         int rowsEffected = deviceService.addDevice(roomId, device);
         Mockito.verifyZeroInteractions(deviceRepo);
@@ -86,7 +86,7 @@ public class DeviceServiceTest {
 
         Mockito.when(deviceRepo.addDevice(Mockito.anyInt(), Mockito.any(Device.class))).thenReturn(0);
         Mockito.when(deviceRepo.getDeviceByName(Mockito.anyInt(), Mockito.anyString())).thenReturn(deviceFromDb);
-        Mockito.when(roomRepo.getRoom(Mockito.anyInt())).thenReturn(new Room());
+        Mockito.when(roomRepo.getRoomById(Mockito.anyInt())).thenReturn(new Room());
 
         int rowsEffected = deviceService.addDevice(roomId, device);
         Mockito.verify(deviceRepo, Mockito.never()).addDevice(Mockito.anyInt(), Mockito.any(Device.class));
@@ -108,7 +108,7 @@ public class DeviceServiceTest {
 
         Mockito.when(deviceRepo.getDeviceByName(Mockito.anyInt(), Mockito.anyString())).thenReturn(deviceFromDb);
         Mockito.when(deviceRepo.addDevice(Mockito.anyInt(), Mockito.any(Device.class))).thenReturn(1);
-        Mockito.when(roomRepo.getRoom(Mockito.anyInt())).thenReturn(new Room());
+        Mockito.when(roomRepo.getRoomById(Mockito.anyInt())).thenReturn(new Room());
 
         int rowsEffected = deviceService.addDevice(roomId, device);
         Assert.assertEquals(1, rowsEffected);
@@ -127,7 +127,7 @@ public class DeviceServiceTest {
 
         Mockito.when(deviceRepo.getDeviceByName(Mockito.anyInt(),Mockito.anyString())).thenReturn(presentDevice);
         Mockito.when(deviceRepo.addDevice(Mockito.anyInt(),Mockito.any(Device.class))).thenReturn(1);
-        Mockito.when(roomRepo.getRoom(Mockito.anyInt())).thenReturn(new Room());
+        Mockito.when(roomRepo.getRoomById(Mockito.anyInt())).thenReturn(new Room());
 
         int rowseffected = deviceService.addDevice(roomId,newDevice);
         Assert.assertEquals(1,rowseffected);
