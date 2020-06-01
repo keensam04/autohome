@@ -73,7 +73,7 @@ public class RoomRepo {
             return jdbcTemplate.queryForObject(query, new Object[]{roomName}, (rs, rowNum) -> {
                 Room room = new Room();
                 room.setId(rs.getInt("id"));
-                room.setRoomName("roomName");
+                room.setRoomName(rs.getString("roomName"));
                 return room;
             });
         }
