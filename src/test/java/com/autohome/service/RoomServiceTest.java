@@ -22,7 +22,7 @@ public class RoomServiceTest {
         room.setRoomName("Bedroom");
 
         int roomAdded = roomService.addRoom(room);
-        Assert.assertEquals(2, roomAdded);
+        Assert.assertEquals(3, roomAdded);
     }
 
     @Test
@@ -41,9 +41,19 @@ public class RoomServiceTest {
     }
 
     @Test
-    public void testAddRoomWhenNoRoomsNameIsGiven() {
+    public void testAddRoomWhenRoomNameIsNull() {
         int addRoom = roomService.addRoom(new Room());
         Assert.assertEquals(-1, addRoom);
+    }
+
+    @Test
+    public void testAddRoomWhenRoomNameIsEmptyString(){
+        Room room = new Room();
+        room.setId(3);
+        room.setRoomName("");
+
+        int roomAdded = roomService.addRoom(room);
+        Assert.assertEquals(-1,roomAdded);
     }
 
     @Test
@@ -59,7 +69,7 @@ public class RoomServiceTest {
 
     @Test
     public void testGetRoomWhenRoomIsAbsent(){
-        int roomId = 2;
+        int roomId = 3;
 
         Room returnedRoom = roomService.getRoom(roomId);
         Assert.assertEquals(null,returnedRoom);
@@ -67,10 +77,9 @@ public class RoomServiceTest {
 
     @Test
     public void testUpdateRoomWhenRoomIsPresent(){
-        int roomId = 1;
+        int roomId = 2;
         Room roomToUpdate = new Room();
-        roomToUpdate.setId(1);
-        roomToUpdate.setRoomName("bedroom");
+        roomToUpdate.setRoomName("toilet");
 
         boolean isUpdated = roomService.updateRoom(roomToUpdate, roomId);
         Assert.assertEquals(true,isUpdated);
@@ -78,9 +87,8 @@ public class RoomServiceTest {
 
     @Test
     public void testUpdateRoomWhenRoomIsAbsent(){
-        int roomId = 1;
+        int roomId = 4;
         Room roomToUpdate = new Room();
-        roomToUpdate.setId(3);
         roomToUpdate.setRoomName("bedroom");
 
         boolean isUpdated = roomService.updateRoom(roomToUpdate, roomId);
@@ -92,7 +100,7 @@ public class RoomServiceTest {
         int roomId = 1;
         Room roomToUpdate = new Room();
         roomToUpdate.setId(1);
-        roomToUpdate.setRoomName("bedroom");
+        roomToUpdate.setRoomName("hall");
 
         boolean isUpdated = roomService.updateRoom(roomToUpdate,roomId);
         Assert.assertEquals(false,isUpdated);
