@@ -30,7 +30,7 @@ public class RoomService {
         } else if (room == null)
             log.error("Room is null or empty");
 
-        else if(room.getRoomName() == null)
+        else if (room.getRoomName() == null)
             log.error("Room Name is null in Room Object");
 
         else if (room.getRoomName().equals(""))
@@ -61,8 +61,7 @@ public class RoomService {
         } else if (isRoomNamePresent)
             log.debug("Room with name {} is already present in DB", room.getRoomName());
 
-        else
-            log.debug("Room with id {} has not been updated", id);
+        log.debug("Room with id {} has not been updated", id);
         return false;
 
     }
