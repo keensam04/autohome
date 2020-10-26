@@ -5,6 +5,7 @@ function App() {
   return (
     <div>
         <h1>Home Automation</h1>
+        <p></p>
     </div>
   );
 }
